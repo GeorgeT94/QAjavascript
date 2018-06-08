@@ -1,0 +1,671 @@
+
+<html>
+<head>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<title></title>
+	<style type="text/css">
+		body{
+			width:100%;
+			height:100%;
+		}
+
+		@font-face {
+		  font-family: 'Calculator';
+		    src:  url('Calculator.ttf.woff') format('woff'),
+		    url('Calculator.ttf.svg#Calculator') format('svg'),
+		    url('Calculator.ttf.eot'),
+		    url('Calculator.eot?#iefix') format('embedded-opentype'); 
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		select{
+			width: 80%;
+			background-color: #AAAAAA;
+			height: 50px;
+			font-size: 20px;
+		}
+		#type{
+
+		}
+		#music{
+			display: none;
+		}
+		#move{
+			position: absolute;
+		}
+		#calc{
+			margin: 10 auto;
+			padding: 20px;
+			background-color: LightGray;
+			border-radius: 10%;
+			position: absolute;
+    		z-index: 9;
+    		border-bottom: black 6px solid;
+    		border-right: black 1px solid;
+		}
+		.display{
+			height: 80px;
+			width:100%;
+			background-color: #BCCD95;
+			color: white;
+			font-size: 40;
+			font-family: Calculator;
+			font-weight: bold;
+
+			color: black;
+			padding: 10px;
+			text-align: right;
+			border: 2px solid black;
+	
+		}
+		.memory{
+			background-color: #85144B;
+		}
+		.adv{
+			background-color: #39CCCC;
+		}
+		button{
+			color: #ffffff;
+			  font-size: 20px;
+			  background: #ff9900;
+			  padding: 10px 20px 10px 20px;
+			  text-decoration: none;
+			  border:none;
+			  border-radius: 10%;
+			  width:80%;
+			  min-width: 60px;
+			  min-height: 60px;
+			  margin: 5px;
+			  border-bottom: black 2px solid;
+		}
+		button:hover{
+			filter: brightness(115%);
+			cursor: pointer;
+
+		}
+		button:active{
+				 filter: brightness(85%);
+				  border-bottom: black 0px solid;
+				  border-top: black 0px solid;
+		}
+		.op{
+			 background: azure;
+			 color: black;
+		}
+		.equals{
+			background-color: #3D9970;
+			width:200%;
+		}
+		.iSon{
+			background-color: #FF4136;
+			margin-top: 20px;
+		}
+		.solar{
+			height: 40px;
+			width: 50%;
+			background-color: #800000;
+			border: 2px solid black;
+			border-right: 2px solid black;
+			border-left: 2px solid black;
+		}
+		body {
+  background: #46484b;
+}		
+	#calc{
+		min-width: 500px;
+		max-width: 500px;
+	}
+
+#light-bulb {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  transition: opacity 0.5s;
+}
+#light-bulb .bulb {
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://lh4.googleusercontent.com/-katLGTSCm2Q/UJC0_N7XCrI/AAAAAAAABq0/6GxNfNW-Ra4/s300/lightbulb.png);
+}
+#light-bulb .bulb.off {
+  background-position-x: -150px;
+}
+#light-bulb .bulb.on {
+  background-position-x: 0;
+}
+#light-bulb.off .bulb.on {
+  opacity: 0;
+}
+#light-bulb.off .bulb.off {
+  opacity: 1;
+}
+#light-bulb.on .bulb.on {
+  opacity: 1;
+}
+#light-bulb.on .bulb.off {
+  opacity: 0;
+}
+
+.cube-switch {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 5% 0px 0px 10%;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #333;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6), inset 0 100px 50px rgba(255, 255, 255, 0.1);
+  /* Prevents clicks on the back */
+  cursor: default;
+  pointer-events: none;
+}
+.cube-switch .switch {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  display: block;
+  background: #666;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 0.7em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -7px 0 rgba(0, 0, 0, 0.2), inset 0 50px 10px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease-out;
+  /* Allows click */
+  cursor: pointer;
+  pointer-events: auto;
+}
+.cube-switch .switch-state {
+  display: block;
+  position: absolute;
+  left: 40%;
+  color: #FFF;
+  font-size: .5em;
+  text-align: center;
+}
+.cube-switch .switch-state.on {
+  bottom: 15%;
+}
+.cube-switch .switch-state.off {
+  top: 15%;
+}
+.cube-switch.active:after, .cube-switch.active:before {
+  background: #333;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 1px 2px 1px rgba(0, 0, 0, 0.5), inset 3px 6px 2px rgba(200, 200, 200, 0.1), inset -1px -2px 1px rgba(0, 0, 0, 0.3);
+}
+.cube-switch.active .switch {
+  background: #333;
+  box-shadow: inset 0 6px 0 rgba(255, 255, 255, 0.1), inset 0 7px 0 rgba(0, 0, 0, 0.2), inset 0 -50px 10px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(205, 205, 205, 0.1);
+}
+.cube-switch.active .switch:after, .cube-switch.active .switch:before {
+  background: #222;
+  border: none;
+  margin-top: 0;
+  height: 1px;
+}
+
+	</style>
+</head>
+<body id="main">
+	<div id="calc">
+		<table>
+			<tr id ="top">
+				<td id ="display" class="display" colspan="5"></td>
+			</tr>
+			<tr>
+				<td id="words" class="display" colspan="5"></td>
+			</tr>			
+			<tr>
+				<td colspan="2"><div class="solar" ></div></td>
+				<td colspan="2">
+				<select  id="typeSelect" class="type"  onclick="changeType()">
+					<option  value="standard">Standard</option>
+  					<option  value="science">Science</option>
+  					
+				</select>
+				</td>
+				<td ><button class="isOn" onclick="turnOn()">ON</button></td>
+				<td></td>
+			</tr>
+			<tr id="type">
+				<td><button class="adv" onclick="advOp('sin')">Sin(x)</button></td>
+				<td><button class="adv" onclick="advOp('cos')">Cos(x)</button></td>
+				<td><button class="adv" onclick="advOp('tan')">tan(x)</button></td>
+			</tr>			
+			<tr>
+				<td><button class ="memory" onclick="memory('R')">MR</button></td>
+				<td><button class ="memory" onclick="memory('+')">M+</button></td>
+				<td><button class ="memory" onclick="memory('-')">M-</button></td>
+				<td><button class ="memory" onclick="memory('C')">MC</button></td>
+
+			</tr>
+			<tr>
+				<td><button onclick="inputNumber(7)">7</button></td>
+				<td><button onclick="inputNumber(8)">8</button></td>
+				<td><button onclick="inputNumber(9)">9</button></td>
+				<td><button class="op" onclick="advOp('^')">&#178</button></td>
+				<td><button class="op" onclick="advOp('r')">&#8730</button></td>
+
+			</tr>
+			<tr>
+				<td><button onclick="inputNumber(4)">4</button></td>
+				<td><button onclick="inputNumber(5)">5</button></td>
+				<td><button onclick="inputNumber(6)" >6</button></td>
+				<td><button class="op" onclick="operator('-')">-</button></td>
+				<td><button  class="op" onclick="operator('+')">+</button></td>
+				
+			</tr>
+			<tr>
+				<td><button onclick="inputNumber(1)">1</button></td>
+				<td><button onclick="inputNumber(2)">2</button></td>
+				<td><button onclick="inputNumber(3)">3</button></td>
+				<td><button class="op" onclick="operator('/')">/</button></td>
+				<td><button class="op" onclick="operator('x')">*</button></td>
+				
+				
+			</tr>
+			<tr>
+				<td><button onclick="inputNumber(0)">0</button></td>
+				<td><button onclick="cleared()">C</button></td>
+				<td><button onclick="decimalOn()">.</button></td>
+				<td><button class="equals" onclick="equal()" colspan="2">=</button></td>				
+			</tr>
+
+
+		</table>
+	</div>
+	<div id="light-bulb" class="off" >
+	  <span class="bulb off"></span>
+	  <span class="bulb on"></span>
+	</div>
+
+	<div href="" class="cube-switch">
+	  <span class="switch">
+	      <span class="switch-state off">Off</span>
+	      <span class="switch-state on">On</span>
+	  </span>
+	</div>
+
+	<script type="text/javascript">
+
+
+		var total = null;
+		var input = 0;
+		var lastInput = null;
+		var currentOperator = "";
+		var equals = false;
+
+		var isOn = true;
+		var lightOn = false;
+		var decimal = false;
+		var m = 0;
+
+
+		document.addEventListener('keydown', numPress, false);
+
+		function numPress(event){
+			var key = event.keyCode;
+			if(key >= 47 && key <= 57){
+				inputNumber(parseInt(String.fromCharCode(key)));
+			}
+
+		}
+
+		function displayTotal(){
+			document.getElementById("display").innerHTML = total;
+			document.getElementById("words").innerHTML = getWords(total);
+		}
+		function turnOn(){
+			cleared();
+			// if(!lightOn){
+			// 	document.getElementById("display").innerHTML = "low battery...";
+			// }
+			// else{
+			// 	isOn = true;
+			// 	document.getElementById("display").innerHTML = "0";
+			// }
+		
+		}
+		function decimalOn(){
+			decimal =true;
+			document.getElementById("display").innerHTML += ".";
+		}
+		function inputNumber(num){
+			//if(!isOn) return;
+
+			if(equals){
+				input =  0;
+				equals =false;
+			}
+
+			if(num%1 ==0 && decimal){
+
+				input = parseFloat(String(input) + "." + String(num));
+				decimal = false;
+
+			}else{
+
+				input = parseFloat(String(input) + String(num));
+
+			}
+			document.getElementById("display").innerHTML = input;
+		}
+		function cleared(){
+			//if(!isOn) return;
+			total = null;
+			input = 0;
+			lastInput = null;
+			currentOperator ="";
+			equals = false;
+			decimal = false;
+
+
+			document.getElementById("display").innerHTML = "0";
+			
+		}
+
+		function memory(op){
+			displayValue  = parseInt(document.getElementById("display").innerHTML);
+			switch(op){
+				case '+':
+					m += displayValue;
+					break;
+				case '-':
+					m -= displayValue;
+					break;
+				case 'C':
+					m = 0;
+					break;
+				case 'R':
+					input = m;
+					document.getElementById("display").innerHTML = input;
+					break;
+
+			}
+		}
+		function operator(op){
+			//if(!isOn) return;
+			decimal = false;
+
+			if(currentOperator != "" && equals === false) getResult();
+
+			equals = false;
+			currentOperator = op;
+
+			lastInput = input;
+			input = 0;
+
+			document.getElementById("display").innerHTML = String(op);
+			
+		}
+
+		function equal(){
+			decimal=false;
+			//if(!isOn) return;
+			equals = true;
+			getResult();
+		}
+
+		function getResult(){
+			if(total === null ){total = lastInput;}
+			if(currentOperator === ""){
+			 	document.getElementById("display").innerHTML = input;
+			 return;
+			}
+			if(currentOperator === "x"){
+				total = total * input;
+			}
+			if(currentOperator === "/"){
+				total = total / input;
+			}
+			if(currentOperator === "+"){
+				total = total + input;
+			}
+			if(currentOperator === "-"){
+				total = total - input;
+			}
+
+			document.getElementById("display").innerHTML = total;
+			document.getElementById("words").innerHTML = getWords(total);
+
+		}
+
+		function advOp(op){
+			decimal = false;
+			if(input == 0 && lastInput == null) return;
+			if(total === null)total = input;
+			currentOperator = op;
+			switch(op){
+				case "^":
+					total = total * total;
+					break;
+				case "r":
+					total = total ** 0.5;
+					break;
+				case "tan":
+					total = Math.tan(total);
+					break;
+				case "sin":
+					total = Math.sin(total);
+					break;
+				case "cos":
+					total = Math.cos(total);
+					break;
+
+			}
+			displayTotal();
+		}
+
+
+		function changeType(){
+			toggle = document.getElementById('typeSelect');
+			bar = document.getElementById('type');
+			console.log(toggle.value);
+			if(toggle.value == "standard"){
+				console.log("std");
+				bar.style.visibility = "hidden";
+			}
+			else if(toggle.value =="science"){
+				bar.style.visibility = "visible";
+			}
+		}
+
+		  $( function() {
+			    $( "#calc" ).draggable();
+			  } );
+
+		$('.cube-switch .switch').click(function() {
+		    if ($('.cube-switch').hasClass('active')) {
+		        $('.cube-switch').removeClass('active');
+		        $('#light-bulb').attr('class', 'off');
+		        $('body').css("background-color", "#46484B");
+		        lightOn = false;
+		        isOn = false;
+		        document.getElementById("display").innerHTML = "";
+		    } else {
+		    	$('body').css("background-color", "#F5F5F5");
+		    	lightOn = true;
+		        $('.cube-switch').addClass('active');
+		        $('#light-bulb').attr('class', 'on');
+		    }
+		});
+
+
+		function getWords(num){
+			console.log(num);
+			var numAsWords = "";
+			var billions = Math.floor(num /1000000000 % 1000000);
+			var millions = Math.floor(num / 1000000 % 1000);
+			var thousands = Math.floor(num / 1000 % 100);
+			if(billions > 0 && billions < 1000) 
+				numAsWords += lessThanOneThousndToWord(billions) + "billion ";
+
+			if(millions > 0 && millions < 1000) 
+				numAsWords += lessThanOneThousndToWord(millions) + "million ";
+			if(thousands > 0 && thousands <1000 ) 
+				numAsWords += lessThanOneThousndToWord(thousands) + "thousand ";
+
+			numAsWords += lessThanOneThousndToWord(num);
+			if(num == Infinity){
+				numAsWords = "Infinity";
+			}else if(num % 1 !== 0){
+				numAsWords += " point" + decimalToString(num%1);
+			}
+
+			return numAsWords;
+
+		}
+
+
+		function lessThanOneThousndToWord(num){
+
+			var numAsWords = "";
+			if(num < 0){
+				isNegative = true;
+				num *= -1;
+				numAsWords += "minus "
+
+			}		
+			var hundreds = (Math.floor(num%1000 / 100));
+			var digits = (Math.floor(num%100));
+			var tens = Math.floor(digits /10);
+			if(hundreds > 0 ){
+				numAsWords += singleNumToWord(hundreds) + " hundred ";
+
+			}
+
+			if(digits > 19 ){	
+				if(num > 100) numAsWords += "and ";
+				numAsWords += tensToWord(tens) + singleNumToWord(digits%10) ;
+			}else if(digits > 0){
+				if(num > 100) numAsWords += "and ";
+				numAsWords +=  singleNumToWord(digits) ;
+			}
+
+			return numAsWords
+		}
+		function tensToWord(num){
+			switch(num){
+				case 2:
+					return "twenty";
+					break;
+				case 3:
+					return "thirty";
+					break;
+				case 4:
+					return "forty";
+					break;
+				case 5:
+					return "fifty";
+				case 6:
+					return "sixty";
+					break;
+				case 7:
+					return "seventy";
+					break;
+				case 8:
+					return "eighty";
+					break;
+				case 9:
+					return "ninety";
+					break;
+			}
+		}
+
+		function singleNumToWord(num){
+			switch(num){
+				case 1:
+					return "one";
+					break;
+				case 2:
+					return "two";
+					break;
+				case 3:
+					return "three";
+					break;
+				case 4:
+					return "four";
+					break;
+				case 5:
+					return "five";
+				case 6:
+					return "six";
+					break;
+				case 7:
+					return "seven";
+					break;
+				case 8:
+					return "eight";
+					break;
+				case 9:
+					return "nine";
+					break;
+				case 10:
+					return "ten";
+					break;
+				case 11:
+					return "eleven";
+					break;
+				case 12:
+					return "twelve";
+					break;
+				case 13:
+					return "thirteen";
+					break;
+				case 14:
+					return "fourteen";
+					break;
+				case 15:
+					return "fifteen";
+					break;
+				case 16:
+					return "sixteen";
+					break;
+				case 17:
+					return "seventeen";
+					break;
+				case 18:
+					return "eighteen";
+					break;
+				case 19:
+					return "nineteen";
+					break;
+				default:
+					return "";	
+			}
+		}
+		 function decimalToString(flt){
+		 	console.log('decimal');
+		 	var str = "" + flt;
+		 	decAsString = "";
+		 	console.log(str);
+		 	str = str.substring(2,5);
+		 	console.log(str);
+
+		 	for(var i=0; i<3;i++ ){
+		 		letter = str.charAt(i);
+		 		console.log(letter);
+		 		if(letter === '0'){
+		 			decAsString += ' zero'
+		 		}else{
+		 			decAsString += " "+ singleNumToWord(parseInt(letter));
+		 		}
+		 		
+		 	}
+
+		 	return decAsString;
+		}
+
+	</script>
+</body>
+</html>
